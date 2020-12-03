@@ -21,11 +21,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void subscribe(Emitter<String> emitter) {
                 emitter.onNext("第一步操作--->");
+                log("subscribe订阅线程 = " + Thread.currentThread().getName());
             }
         }).map(new Function<String, String>() {
             @Override
             public String apply(String t) {
                 String u = t + "第二步操作--->";
+                log("map订阅线程 = " + Thread.currentThread().getName());
                 return u;
             }
         }).map(new Function<String, String>() {
@@ -35,10 +37,13 @@ public class MainActivity extends AppCompatActivity {
                 return u;
             }
         })
+                .subscribeOn()
+                .observeOn()
                 .subscribeObserver(new Observer() {
                     @Override
                     public void onNext(Object o) {
                         log(o.toString());
+                        log("当前线程的名字 = " + Thread.currentThread().getName());
                     }
 
                     @Override

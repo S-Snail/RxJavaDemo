@@ -2,6 +2,8 @@ package com.snail.rxjavademo.rxjava.obeservable;
 
 import com.snail.rxjavademo.rxjava.obeservable.mapop.Function;
 import com.snail.rxjavademo.rxjava.obeservable.mapop.ObservableMap;
+import com.snail.rxjavademo.rxjava.obeservable.thread.ObservableObserveOn;
+import com.snail.rxjavademo.rxjava.obeservable.thread.ObservableSubscribeOn;
 import com.snail.rxjavademo.rxjava.observer.Observer;
 
 /**
@@ -29,4 +31,21 @@ public abstract class Observable<T> implements ObservableSource {
     public <U> Observable map(Function<T, U> function) {
         return new ObservableMap(this, function);
     }
+
+
+    /**
+     * 创建Observer的线程切换
+     */
+    public final Observable<T> observeOn() {
+        return new ObservableObserveOn<T>(this);
+    }
+
+    /**
+     * 创建Observable的线程切换
+     */
+
+    public final Observable<T> subscribeOn(){
+        return new ObservableSubscribeOn<T>(this);
+    }
+
 }
