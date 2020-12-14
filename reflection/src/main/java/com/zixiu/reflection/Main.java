@@ -3,6 +3,7 @@ package com.zixiu.reflection;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * Author: Snail
@@ -13,14 +14,12 @@ import java.lang.reflect.InvocationTargetException;
 public class Main {
 
     public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, NoSuchFieldException {
-        System.out.println("-----每一个类都有一个Class对象，每当编译一个新类就会产生一个Class对象：基本类型，引用类型，数组以及关键字，都有Class对象--------");
-        System.out.println("-----Java获取一个类的Class的四种方式----");
-
-        Class<?> class1 = null;
-        Class<?> class2 = null;
-        Class<?> class3 = null;
-        Class<?> class4 = null;
-
+//        System.out.println("-----每一个类都有一个Class对象，每当编译一个新类就会产生一个Class对象：基本类型，引用类型，数组以及关键字，都有Class对象--------");
+//        System.out.println("-----Java获取一个类的Class的四种方式----");
+//        Class<?> class1 = null;
+//        Class<?> class2 = null;
+//        Class<?> class3 = null;
+//        Class<?> class4 = null;
 //        //方式一：Class.forName()
 //        System.out.println("-------方式一：Class.forName()-------");
 //        class1 = Class.forName(Person.CLASS_NAME);
@@ -139,11 +138,46 @@ public class Main {
 //        //写
 //        ageField.set(person,100);
 //        System.out.println(ageField.getName() + ":" + person.getAge());
-
         /**
          * 通过Class获取Method
          */
+        Class<?> personClass = Class.forName(Person.CLASS_NAME);
+        Class<?> childClass = Class.forName(Child.CLASS_NAME);
+        System.out.println("------获取Class中的所有方法，不包括私有方法，且获取从父类继承来的所有方法-------");
+        Method[] childClassMethods = childClass.getMethods();
+        for (Method method : childClassMethods) {
+            System.out.println(" " + method.getName() + "()");
+        }
 
+        System.out.println("-------获取所有方法，包括private方法，且只获取当前类的方法-------");
+        Method[] childClassDeclaredMethods = childClass.getDeclaredMethods();
+        for (Method method : childClassDeclaredMethods) {
+            System.out.println(" " + method.getName() + "()");
+        }
+
+        System.out.println("-------获取指定的方法，需要参数名和参数列表，无参则不需要写");
+        Method setNameMethod = personClass.getDeclaredMethod("setName",String.class);
+        System.out.println(setNameMethod);
+        Method setIntAge = personClass.getDeclaredMethod("setAge", int.class);
+        System.out.println(setIntAge);
+        Method setIntegerAge = personClass.getDeclaredMethod("setAge", Integer.class);
+        System.out.println(setIntegerAge);
+
+        System.out.println("-------执行方法，第一个参数是指执行哪一个对象的方法，第二个参数是执行方法时具体的实参-------");
+        Object personInstance = personClass.newInstance();
+        setIntAge.invoke(personInstance,18);
+
+        Method getNameMethod = personClass.getDeclaredMethod("getName");
+        Person person = (Person)personClass.newInstance();
+        person.setName("Snail");
+        getNameMethod.invoke(person);
+
+        System.out.println("-------执行私有方法，必须加上setAccessable(true)-------");
+        Method privateChildMethod = childClass.getDeclaredMethod("privateChildMethod");
+        Object childInstance = childClass.newInstance();
+        privateChildMethod.setAccessible(true);
+        privateChildMethod.invoke(childInstance);
+        privateChildMethod.setAccessible(false);
 
     }
 }

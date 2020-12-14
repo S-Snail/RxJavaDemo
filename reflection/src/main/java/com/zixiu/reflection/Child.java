@@ -7,6 +7,13 @@ package com.zixiu.reflection;
  * 简介：
  */
 public class Child extends Person{
+    public static String CLASS_NAME = "com.zixiu.reflection.Child";
+    private void privateChildMethod(){
+        System.out.println("Child 的私有方法");
+    }
 
+    public void publicChildMethod(){
+        System.out.println("Child 的公有方法");
+    }
 
 }
