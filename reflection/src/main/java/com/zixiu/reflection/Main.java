@@ -1,9 +1,6 @@
 package com.zixiu.reflection;
 
-import java.io.File;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 /**
  * Author: Snail
@@ -141,43 +138,71 @@ public class Main {
         /**
          * 通过Class获取Method
          */
-        Class<?> personClass = Class.forName(Person.CLASS_NAME);
+//        Class<?> personClass = Class.forName(Person.CLASS_NAME);
+//        Class<?> childClass = Class.forName(Child.CLASS_NAME);
+//        System.out.println("------获取Class中的所有方法，不包括私有方法，且获取从父类继承来的所有方法-------");
+//        Method[] childClassMethods = childClass.getMethods();
+//        for (Method method : childClassMethods) {
+//            System.out.println(" " + method.getName() + "()");
+//        }
+//
+//        System.out.println("-------获取所有方法，包括private方法，且只获取当前类的方法-------");
+//        Method[] childClassDeclaredMethods = childClass.getDeclaredMethods();
+//        for (Method method : childClassDeclaredMethods) {
+//            System.out.println(" " + method.getName() + "()");
+//        }
+//
+//        System.out.println("-------获取指定的方法，需要参数名和参数列表，无参则不需要写");
+//        Method setNameMethod = personClass.getDeclaredMethod("setName",String.class);
+//        System.out.println(setNameMethod);
+//        Method setIntAge = personClass.getDeclaredMethod("setAge", int.class);
+//        System.out.println(setIntAge);
+//        Method setIntegerAge = personClass.getDeclaredMethod("setAge", Integer.class);
+//        System.out.println(setIntegerAge);
+//
+//        System.out.println("-------执行方法，第一个参数是指执行哪一个对象的方法，第二个参数是执行方法时具体的实参-------");
+//        Object personInstance = personClass.newInstance();
+//        setIntAge.invoke(personInstance,18);
+//
+//        Method getNameMethod = personClass.getDeclaredMethod("getName");
+//        Person person = (Person)personClass.newInstance();
+//        person.setName("Snail");
+//        getNameMethod.invoke(person);
+//
+//        System.out.println("-------执行私有方法，必须加上setAccessable(true)-------");
+//        Method privateChildMethod = childClass.getDeclaredMethod("privateChildMethod");
+//        Object childInstance = childClass.newInstance();
+//        privateChildMethod.setAccessible(true);
+//        privateChildMethod.invoke(childInstance);
+//        privateChildMethod.setAccessible(false);
+
+        /**
+         * 通过Class获取类加载器
+         */
         Class<?> childClass = Class.forName(Child.CLASS_NAME);
-        System.out.println("------获取Class中的所有方法，不包括私有方法，且获取从父类继承来的所有方法-------");
-        Method[] childClassMethods = childClass.getMethods();
-        for (Method method : childClassMethods) {
-            System.out.println(" " + method.getName() + "()");
-        }
+        String classLoaderName = childClass.getClassLoader().getClass().getName();
+        System.out.println("类加载器名 -> " + classLoaderName);
 
-        System.out.println("-------获取所有方法，包括private方法，且只获取当前类的方法-------");
-        Method[] childClassDeclaredMethods = childClass.getDeclaredMethods();
-        for (Method method : childClassDeclaredMethods) {
-            System.out.println(" " + method.getName() + "()");
-        }
-
-        System.out.println("-------获取指定的方法，需要参数名和参数列表，无参则不需要写");
-        Method setNameMethod = personClass.getDeclaredMethod("setName",String.class);
-        System.out.println(setNameMethod);
-        Method setIntAge = personClass.getDeclaredMethod("setAge", int.class);
-        System.out.println(setIntAge);
-        Method setIntegerAge = personClass.getDeclaredMethod("setAge", Integer.class);
-        System.out.println(setIntegerAge);
-
-        System.out.println("-------执行方法，第一个参数是指执行哪一个对象的方法，第二个参数是执行方法时具体的实参-------");
-        Object personInstance = personClass.newInstance();
-        setIntAge.invoke(personInstance,18);
-
-        Method getNameMethod = personClass.getDeclaredMethod("getName");
-        Person person = (Person)personClass.newInstance();
-        person.setName("Snail");
-        getNameMethod.invoke(person);
-
-        System.out.println("-------执行私有方法，必须加上setAccessable(true)-------");
-        Method privateChildMethod = childClass.getDeclaredMethod("privateChildMethod");
-        Object childInstance = childClass.newInstance();
-        privateChildMethod.setAccessible(true);
-        privateChildMethod.invoke(childInstance);
-        privateChildMethod.setAccessible(false);
+        System.out.println("------获取一个系统的类加载器（系统的类加载器，可以获取，当前的类就是它加载的）-------");
+        //1、获取一个系统类的加载器（系统的类加载器，可以获取，当前的类就是它加载的）
+        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+        System.out.println(classLoader);
+        System.out.println("-------获取系统类的加载器的父加载器（扩展类加载器，可以获取）-------");
+        //2、获取系统类的加载器的父加载器（扩展类加载器，可以获取）
+        classLoader = classLoader.getParent();
+        System.out.println(classLoader);
+        System.out.println("-------获取扩展类的加载器的父加载器（引导类加载器，不可获取）-------");
+        //3、获取扩展类加载器的父加载器（引导类加载器，不可获取）
+        classLoader = classLoader.getParent();
+        System.out.println(classLoader);
+        System.out.println("-------测试当前类是由哪个类加载器加载的（系统类加载器）");
+        //4、测试当前类是由哪个类加载器加载的（系统类加载器）
+        classLoader = Class.forName(Child.CLASS_NAME).getClassLoader();
+        System.out.println(classLoader);
+        System.out.println("-------测试JDK提供的Object类是由哪个类加载器加载的（引导类加载器，不可获取）-------");
+        //5、测试JDK提供的Object类是由哪个类加载器加载的（引导类加载器，不可获取）
+        classLoader = Class.forName("java.lang.Object").getClassLoader();
+        System.out.println(classLoader);
 
     }
 }
