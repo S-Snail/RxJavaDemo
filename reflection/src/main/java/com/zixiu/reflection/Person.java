@@ -6,10 +6,12 @@ package com.zixiu.reflection;
  * FileName:  Person
  * 简介：
  */
-public class Person {
+@ClassAnnotation(path = "com.zixiu.reflection.Person",desc = "我是Person类")
+public class Person implements Runnable{
     public static String CLASS_NAME = "com.zixiu.reflection.Person";
 
     private int age;
+    @ClassAnnotation(path = "com.zixiu.reflection.Person.name",desc = "我的Person类的属性name")
     private String name;
 
     public void publicPersonMethod(){
@@ -59,5 +61,8 @@ public class Person {
     }
 
 
+    @Override
+    public void run() {
 
+    }
 }

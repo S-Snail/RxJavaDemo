@@ -1,5 +1,6 @@
 package com.zixiu.reflection;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 
 /**
@@ -179,30 +180,87 @@ public class Main {
         /**
          * 通过Class获取类加载器
          */
-        Class<?> childClass = Class.forName(Child.CLASS_NAME);
-        String classLoaderName = childClass.getClassLoader().getClass().getName();
-        System.out.println("类加载器名 -> " + classLoaderName);
+//        Class<?> childClass = Class.forName(Child.CLASS_NAME);
+//        String classLoaderName = childClass.getClassLoader().getClass().getName();
+//        System.out.println("类加载器名 -> " + classLoaderName);
+//
+//        System.out.println("------获取一个系统的类加载器（系统的类加载器，可以获取，当前的类就是它加载的）-------");
+//        //1、获取一个系统类的加载器（系统的类加载器，可以获取，当前的类就是它加载的）
+//        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+//        System.out.println(classLoader);
+//        System.out.println("-------获取系统类的加载器的父加载器（扩展类加载器，可以获取）-------");
+//        //2、获取系统类的加载器的父加载器（扩展类加载器，可以获取）
+//        classLoader = classLoader.getParent();
+//        System.out.println(classLoader);
+//        System.out.println("-------获取扩展类的加载器的父加载器（引导类加载器，不可获取）-------");
+//        //3、获取扩展类加载器的父加载器（引导类加载器，不可获取）
+//        classLoader = classLoader.getParent();
+//        System.out.println(classLoader);
+//        System.out.println("-------测试当前类是由哪个类加载器加载的（系统类加载器）");
+//        //4、测试当前类是由哪个类加载器加载的（系统类加载器）
+//        classLoader = Class.forName(Child.CLASS_NAME).getClassLoader();
+//        System.out.println(classLoader);
+//        System.out.println("-------测试JDK提供的Object类是由哪个类加载器加载的（引导类加载器，不可获取）-------");
+//        //5、测试JDK提供的Object类是由哪个类加载器加载的（引导类加载器，不可获取）
+//        classLoader = Class.forName("java.lang.Object").getClassLoader();
+//        System.out.println(classLoader);
 
-        System.out.println("------获取一个系统的类加载器（系统的类加载器，可以获取，当前的类就是它加载的）-------");
-        //1、获取一个系统类的加载器（系统的类加载器，可以获取，当前的类就是它加载的）
-        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-        System.out.println(classLoader);
-        System.out.println("-------获取系统类的加载器的父加载器（扩展类加载器，可以获取）-------");
-        //2、获取系统类的加载器的父加载器（扩展类加载器，可以获取）
-        classLoader = classLoader.getParent();
-        System.out.println(classLoader);
-        System.out.println("-------获取扩展类的加载器的父加载器（引导类加载器，不可获取）-------");
-        //3、获取扩展类加载器的父加载器（引导类加载器，不可获取）
-        classLoader = classLoader.getParent();
-        System.out.println(classLoader);
-        System.out.println("-------测试当前类是由哪个类加载器加载的（系统类加载器）");
-        //4、测试当前类是由哪个类加载器加载的（系统类加载器）
-        classLoader = Class.forName(Child.CLASS_NAME).getClassLoader();
-        System.out.println(classLoader);
-        System.out.println("-------测试JDK提供的Object类是由哪个类加载器加载的（引导类加载器，不可获取）-------");
-        //5、测试JDK提供的Object类是由哪个类加载器加载的（引导类加载器，不可获取）
-        classLoader = Class.forName("java.lang.Object").getClassLoader();
-        System.out.println(classLoader);
+        /**
+         * 通过Class获取类的其他信息（接口、注解、修饰符等）
+         */
+        Class<?> personClass = Class.forName(Person.CLASS_NAME);
+        Class<?> childClass = Class.forName(Child.CLASS_NAME);
+//
+//        System.out.println("-------获取类的包名和全类名-------");
+//        System.out.println("类的包名：" + personClass.getPackage().getName());
+//        System.out.println("类的完整类名：" + personClass.getName());
+//
+//        System.out.println("-------取得父类名-------");
+//        System.out.println("当前类的父类名：" + childClass.getSuperclass());
+//
+//        System.out.println("-------取得类中的属性-------");
+//        Field[] personClassDeclaredFields = personClass.getDeclaredFields();
+//        for (Field field : personClassDeclaredFields) {
+//            System.out.println("类中的成员：" + field);
+//        }
+//
+//        System.out.println("-------取得类方法-------");
+//        Method[] personClassDeclaredMethods = personClass.getDeclaredMethods();//获取当前类的所有方法，包括私有方法
+//        for (Method method : personClassDeclaredMethods) {
+//            System.out.println("函数名：" + method.getName());
+//            System.out.println("函数返回值类型：" + method.getReturnType());
+//            System.out.println("函数访问修饰符：" + Modifier.toString(method.getModifiers()));
+//            System.out.println("函数代码写法：" + method);
+//            System.out.println("**************************************");
+//        }
+
+//        System.out.println("-------取得构造方法-------");
+//        Constructor<?>[] personClassConstructors = personClass.getConstructors();
+//        for (Constructor constructor : personClassConstructors) {
+//            System.out.println(constructor);
+//        }
+
+//        System.out.println("-------测试当前类是由哪个类加载器加载的（系统加载器）-------");
+//        ClassLoader personClassClassLoader = personClass.getClassLoader();
+//        System.out.println(personClassClassLoader);
+
+//        System.out.println("-------取得类实现的接口-------");
+//        Class<?>[] personClassInterfaces = personClass.getInterfaces();
+//        for (Class<?> interfaceAddress : personClassInterfaces) {
+//            System.out.println(interfaceAddress.getName());
+//            for (Method method : interfaceAddress.getDeclaredMethods()) {
+//                System.out.println("函数名：" + method.getName());
+//                System.out.println("函数代码写法：" + method);
+//            }
+//        }
+
+        System.out.println("-------取得类注解-------");
+        Annotation[] personClassAnnotations = personClass.getAnnotations();
+        for (Annotation annotation : personClassAnnotations) {
+            System.out.println(annotation);
+        }
+        ClassAnnotation annotation = personClass.getAnnotation(ClassAnnotation.class);
+        System.out.println("path = " + annotation.path() + "\tdesc = " + annotation.desc());
 
     }
 }
