@@ -1,6 +1,7 @@
 package com.zixiu.proxy;
 
 import com.zixiu.proxy.dynamic_proxy.DynamicProxySubjectFactory;
+import com.zixiu.proxy.static_proxy.RealSubject2;
 import com.zixiu.proxy.static_proxy.RealSubjectCustom;
 import com.zixiu.proxy.static_proxy.StaticProxySubject;
 import com.zixiu.proxy.static_proxy.RealSubject;
@@ -24,6 +25,11 @@ public class ProxyMain {
         Subject realSubject = new RealSubject();
         Subject proxySubject = new StaticProxySubject(realSubject);
         proxySubject.request("静态代理类调用了");
+
+        RealSubject2 realSubject2 = new RealSubject2();
+        StaticProxySubject staticProxySubject2 = new StaticProxySubject(realSubject2);
+        staticProxySubject2.request("静态代理 - 真实对象2");
+
         /**
          * 动态代理
          * 优点：只需要一个动态代理类，就可以解决创建多个静态代理类的问题。避免重复，多余代码，有更强的灵活性
