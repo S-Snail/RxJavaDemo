@@ -1,3 +1,4 @@
+include ':proxy'
 include ':reflection'
 include ':rx_generic'
 include ':app'
