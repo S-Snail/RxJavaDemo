@@ -1,6 +1,7 @@
 package com.zixiu.proxy;
 
 import com.zixiu.proxy.dynamic_proxy.DynamicProxySubjectFactory;
+import com.zixiu.proxy.static_proxy.RealSubjectCustom;
 import com.zixiu.proxy.static_proxy.StaticProxySubject;
 import com.zixiu.proxy.static_proxy.RealSubject;
 
@@ -36,5 +37,8 @@ public class ProxyMain {
 
         Subject instance2 = new DynamicProxySubjectFactory<Subject>(new RealSubject()).getProxyInstance2();
         instance2.request("通用动态代理类");
+
+        SubjectCustom subjectCustom = new DynamicProxySubjectFactory<SubjectCustom>(new RealSubjectCustom()).getProxyInstance2();
+        subjectCustom.doSomething();
     }
 }
