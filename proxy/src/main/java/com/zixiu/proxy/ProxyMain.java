@@ -32,6 +32,9 @@ public class ProxyMain {
         System.out.println("-------动态代理Demo2-------");
         Subject realDynamicProxySubject = (Subject) new DynamicProxySubjectFactory(new RealSubject()).getProxyInstance();
         realDynamicProxySubject.request("动态代理类调用了");
-        realDynamicProxySubject.response(520);
+//        realDynamicProxySubject.response(520);
+
+        Subject instance2 = new DynamicProxySubjectFactory<Subject>(new RealSubject()).getProxyInstance2();
+        instance2.request("通用动态代理类");
     }
 }
