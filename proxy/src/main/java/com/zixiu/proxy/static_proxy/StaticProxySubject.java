@@ -9,11 +9,11 @@ import com.zixiu.proxy.Subject;
  * 简介：代理角色
  * 需要实现抽象角色接口，是真实角色的代理，通过真实角色的业务逻辑方法来实现抽象方法，并可以附加自己的操作，将统一的流程控制都放到代理角色中处理
  */
-public class ProxySubject implements Subject {
+public class StaticProxySubject implements Subject {
 
     private Subject realSubject;
 
-    public ProxySubject(Subject realSubject) {
+    public StaticProxySubject(Subject realSubject) {
         this.realSubject = realSubject;
     }
 

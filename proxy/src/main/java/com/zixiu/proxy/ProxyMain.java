@@ -1,7 +1,7 @@
 package com.zixiu.proxy;
 
 import com.zixiu.proxy.dynamic_proxy.DynamicProxySubjectFactory;
-import com.zixiu.proxy.static_proxy.ProxySubject;
+import com.zixiu.proxy.static_proxy.StaticProxySubject;
 import com.zixiu.proxy.static_proxy.RealSubject;
 
 /**
@@ -21,10 +21,13 @@ public class ProxyMain {
          */
         System.out.println("-------静态代理Demo1-------");
         Subject realSubject = new RealSubject();
-        Subject proxySubject = new ProxySubject(realSubject);
+        Subject proxySubject = new StaticProxySubject(realSubject);
         proxySubject.request("静态代理类调用了");
         /**
          * 动态代理
+         * 优点：只需要一个静态代理类，就可以解决创建多个静态代理类的问题。避免重复，多余代码，有更强的灵活性
+         * 缺点：效率低：相比静态代理中直接调用目标对象的方法，动态代理则需要通过Java反射机制从而间接调用目标对象方法
+         *      应用局限性：因为Java的单继承特性（每个代理类都继承了Proxy类），即只能针对接口（多实现）创建代理类，不能针对类创建代理类
          */
         System.out.println("-------动态代理Demo2-------");
         Subject realDynamicProxySubject = (Subject) new DynamicProxySubjectFactory(new RealSubject()).getProxyInstance();
