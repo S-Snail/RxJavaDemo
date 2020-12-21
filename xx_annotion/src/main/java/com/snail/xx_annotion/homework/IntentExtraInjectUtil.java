@@ -57,8 +57,6 @@ public class IntentExtraInjectUtil {
                         Object[] objs = (Object[]) obj;
                         //创建对应类型的数组并由objs拷贝
                         Arrays.copyOf(objs, objs.length, (Class<? extends java.lang.Object[]>) field.getType());
-                        //或者这么写
-//                        Arrays.copyOf(objs,objs.length,Parcelable[].class);
                         obj = objs;
                     }
                     field.setAccessible(true);
