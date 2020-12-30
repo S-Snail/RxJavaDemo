@@ -1,19 +1,23 @@
 package com.snail.xx_annotion.EnjoyRetrofit;
 
-import com.snail.xx_annotion.EnjoyRetrofit.api.EnjoyWeatherApi;
-
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.net.URI;
+import java.net.URL;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import okhttp3.Call;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
+import retrofit2.http.Url;
 
 public class EnjoyRetrofit implements InvocationHandler {
 
-    private HttpUrl baseUrl;
-    private Call.Factory callFactory;
+    public HttpUrl baseUrl;
+    public Call.Factory callFactory;
+    private Map<Method, ServiceMethod> serviceMethodCache = new ConcurrentHashMap<>();
 
     public EnjoyRetrofit(HttpUrl baseUrl, Call.Factory callFactory) {
         this.baseUrl = baseUrl;
@@ -21,14 +25,15 @@ public class EnjoyRetrofit implements InvocationHandler {
     }
 
     public <T> T create(Class<T> apiClass) {
-        return (T) Proxy.newProxyInstance(apiClass.getClassLoader(),apiClass.getInterfaces(),this);
+        return (T) Proxy.newProxyInstance(apiClass.getClassLoader(), new Class[]{apiClass}, this);
     }
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         //解析method上的所有注解信息
+        ServiceMethod serviceMethod = loadServiceMethod(method);
 
-        return null;
+        return serviceMethod.invoke(args);
     }
 
     public static class Builder {
@@ -37,7 +42,7 @@ public class EnjoyRetrofit implements InvocationHandler {
         private Call.Factory callFactory;
 
         public Builder baseUrl(String baseUrl) {
-            this.baseUrl = HttpUrl.get(baseUrl);
+            this.baseUrl = HttpUrl.get(URI.create(baseUrl));
             return this;
         }
 
@@ -55,5 +60,18 @@ public class EnjoyRetrofit implements InvocationHandler {
             }
             return new EnjoyRetrofit(baseUrl, callFactory);
         }
+    }
+
+    private ServiceMethod loadServiceMethod(Method method) {
+        ServiceMethod serviceMethod = serviceMethodCache.get(method);
+        if (serviceMethod != null) return serviceMethod;
+        synchronized (serviceMethodCache){
+            serviceMethod = serviceMethodCache.get(method);
+            if (serviceMethod == null){
+                serviceMethod = new ServiceMethod.Builder(this,method).build();
+                serviceMethodCache.put(method,serviceMethod);
+            }
+        }
+        return serviceMethod;
     }
 }

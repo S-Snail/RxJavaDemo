@@ -15,4 +15,5 @@ public interface EnjoyWeatherApi {
     @GET("/v3/weather/weatherInfo")
     Call getWeather(@Query("city") String city, @Query("key") String key);
 
+    //https://restapi.amap.com/v3/weather/weatherInfo?city=110101&key=ae6c53e2186f33bbf240a12d80672d1b
 }

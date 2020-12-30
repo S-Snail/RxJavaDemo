@@ -2,8 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.snail.xx_annotion">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application>
-        <activity android:name=".EnjoyRetrofit.EnjoyRetrofitActivity"></activity>
+        <activity android:name=".EnjoyRetrofit.EnjoyRetrofitActivity">
+        </activity>
     </application>
 
 </manifest>
