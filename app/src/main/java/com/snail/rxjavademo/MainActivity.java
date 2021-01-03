@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.snail.cusretrofit.CusRetrofitActivity;
 import com.snail.rxjavademo.rxjava.obeservable.Observable;
 import com.snail.rxjavademo.rxjava.obeservable.ObservableOnSubscribe;
 import com.snail.rxjavademo.rxjava.obeservable.emitter.Emitter;
 import com.snail.rxjavademo.rxjava.obeservable.mapop.Function;
 import com.snail.rxjavademo.rxjava.observer.Observer;
+import com.snail.xx_annotion.EnjoyRetrofit.EnjoyRetrofit;
 import com.snail.xx_annotion.EnjoyRetrofit.EnjoyRetrofitActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -64,8 +66,10 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 //                });
 
-        Intent intent = new Intent(this, EnjoyRetrofitActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, EnjoyRetrofitActivity.class);
+//        startActivity(intent);
+        Intent intent2 = new Intent(this, CusRetrofitActivity.class);
+        startActivity(intent2);
     }
 
     public void log(String msg) {

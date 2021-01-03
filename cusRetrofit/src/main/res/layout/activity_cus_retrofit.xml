@@ -5,30 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".EnjoyRetrofit.EnjoyRetrofitActivity">
+    tools:context=".CusRetrofitActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:height="50dp"
         android:background="#ff0000"
-        android:text="EnjoyRetrofit"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:text="CusRetrofit" />
 
     <Button
         android:id="@+id/btnPost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="POST"
-        />
+        android:text="POST" />
 
     <Button
         android:id="@+id/btnGet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="GET"
-        />
-
+        android:text="GET" />
 
     <TextView
         android:id="@+id/tv_content"
