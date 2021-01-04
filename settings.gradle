@@ -1,3 +1,4 @@
+include ':thread'
 include ':cusRetrofit'
 include ':xx_annotion'
 include ':proxy'
