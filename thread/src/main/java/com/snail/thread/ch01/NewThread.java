@@ -1,4 +1,4 @@
-package com.snail.thread;
+package com.snail.thread.ch01;
 
 /**
  * 新启线程的方式

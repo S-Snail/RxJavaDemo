@@ -1,4 +1,4 @@
-package com.snail.thread.waitAndNotify;
+package com.snail.thread.ch01.waitAndNotify;
 
 /**
  * 多线程协作，锁住方法synchronized，验证wait(),notify()与notifyAll()

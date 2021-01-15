@@ -1,4 +1,4 @@
-package com.snail.thread.threadlocal;
+package com.snail.thread.ch01.threadlocal;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;

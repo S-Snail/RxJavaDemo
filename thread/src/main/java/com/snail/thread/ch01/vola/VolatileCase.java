@@ -1,4 +1,4 @@
-package com.snail.thread.vola;
+package com.snail.thread.ch01.vola;
 
 public class VolatileCase {
 

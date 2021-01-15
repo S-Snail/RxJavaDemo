@@ -1,4 +1,4 @@
-package com.snail.thread.threadlocal;
+package com.snail.thread.ch01.threadlocal;
 
 import androidx.annotation.Nullable;
 

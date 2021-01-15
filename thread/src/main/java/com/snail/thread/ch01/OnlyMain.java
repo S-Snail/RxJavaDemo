@@ -1,4 +1,4 @@
-package com.snail.thread;
+package com.snail.thread.ch01;
 
 public class OnlyMain {
     public static void main(String[] args) {

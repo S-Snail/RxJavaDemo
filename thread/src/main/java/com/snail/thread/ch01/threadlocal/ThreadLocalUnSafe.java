@@ -1,4 +1,4 @@
-package com.snail.thread.threadlocal;
+package com.snail.thread.ch01.threadlocal;
 
 /**
  * 演示错误使用ThreadLocal导致线程不安全

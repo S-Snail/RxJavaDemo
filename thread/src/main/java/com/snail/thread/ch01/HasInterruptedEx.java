@@ -1,4 +1,4 @@
-package com.snail.thread;
+package com.snail.thread.ch01;
 
 import androidx.annotation.NonNull;
 

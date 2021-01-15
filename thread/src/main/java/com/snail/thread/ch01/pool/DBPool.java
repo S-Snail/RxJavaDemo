@@ -1,4 +1,4 @@
-package com.snail.thread.pool;
+package com.snail.thread.ch01.pool;
 
 import java.sql.Connection;
 import java.util.LinkedList;

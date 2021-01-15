@@ -1,4 +1,4 @@
-package com.snail.thread.threadlocal;
+package com.snail.thread.ch01.threadlocal;
 
 public class NoThreadLocal {
     static Integer count = new Integer(1);
